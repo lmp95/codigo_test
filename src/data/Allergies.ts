@@ -1,0 +1,26 @@
+export const AllergiesData = [
+  {
+    id: 1,
+    name: 'Milk',
+  },
+  {
+    id: 2,
+    name: 'Meat',
+  },
+  {
+    id: 3,
+    name: 'Weat',
+  },
+  {
+    id: 4,
+    name: 'Nasacort',
+  },
+  {
+    id: 5,
+    name: 'Nasalide',
+  },
+  {
+    id: 6,
+    name: 'Nasaonex',
+  },
+];
