@@ -1,20 +1,17 @@
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Typography from '../../components/Typography';
-import { DietsData } from '../../data/Diets';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { useSignUpSelector } from '../../../../redux/signUpSlice';
 import {
-  DietsSchema,
-  DietsValues,
   QuestionsSchema,
   QuestionsValues,
-} from '../../validations/OnBoarding.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Button from '../../components/Button';
-import { useNavigation } from '@react-navigation/native';
-import ErrorMessage from '../../components/ErrorMessage';
-import { useDispatch } from 'react-redux';
-import { useSignUpSelector } from '../../redux/signUpSlice';
-import Radio from '../../components/Radio';
+} from '../../../../validations/OnBoarding.schema';
+import Typography from '../../../../components/Typography';
+import Radio from '../../../../components/Radio';
+import ErrorMessage from '../../../../components/ErrorMessage';
+import Button from '../../../../components/Button';
 
 export default function Questions() {
   const navigation = useNavigation();

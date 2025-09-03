@@ -12,10 +12,11 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import AuthNavigation from './src/navigations/authNavigation';
+import StateManagementNavigation from './src/navigations/StateManagementNavigation';
 import { Provider } from 'react-redux';
 import { persist, store } from './src/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import AppNavigation from './src/navigations/AppNavigation';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -28,21 +29,12 @@ function App() {
             <StatusBar
               barStyle={isDarkMode ? 'light-content' : 'dark-content'}
             />
-            <SafeAreaView style={styles.container} edges={['top']}>
-              <AuthNavigation />
-            </SafeAreaView>
+            <AppNavigation />
           </SafeAreaProvider>
         </NavigationContainer>
       </PersistGate>
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#D3F3E6',
-  },
-});
 
 export default App;

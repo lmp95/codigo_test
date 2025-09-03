@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Typography from '../components/Typography';
+import Typography from '../../../components/Typography';
 
-import OnBoardingImg from '../../assets/images/onboarding.svg';
-import Button from '../components/Button';
+import OnBoardingImg from '../../../../assets/images/onboarding.svg';
+import Button from '../../../components/Button';
 import { useNavigation } from '@react-navigation/native';
 
 export default function OnBoarding() {

@@ -1,5 +1,11 @@
 import React, { PropsWithChildren } from 'react';
-import { Text, StyleSheet, StyleProp, TextStyle } from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  StyleProp,
+  TextStyle,
+  TextProps,
+} from 'react-native';
 
 const sizeMap = {
   xs: 12,
@@ -25,7 +31,8 @@ type TypographyProps = {
   size?: SizeKey;
   weight?: WeightKey;
   style?: StyleProp<TextStyle>;
-} & PropsWithChildren;
+} & PropsWithChildren &
+  TextProps;
 
 export default function Typography({
   children,

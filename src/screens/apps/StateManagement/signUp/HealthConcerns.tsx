@@ -1,24 +1,24 @@
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Typography from '../../components/Typography';
-import { HealthConcernsData } from '../../data/Healthconcern';
+import Typography from '../../../../components/Typography';
+import { HealthConcernsData } from '../../../../data/Healthconcern';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import {
   HealthConcernsSchema,
   HealthConcernsValues,
-} from '../../validations/OnBoarding.schema';
+} from '../../../../validations/OnBoarding.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Button from '../../components/Button';
-import Badge from '../../components/Badge';
+import Button from '../../../../components/Button';
+import Badge from '../../../../components/Badge';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import {
   clearSignUp,
   setHealthConcerns,
   useHealthConcernsSelector,
-} from '../../redux/signUpSlice';
-import TextButton from '../../components/TextButton';
-import ErrorMessage from '../../components/ErrorMessage';
-import SignUpFooter from '../../components/SignUpFooter';
+} from '../../../../redux/signUpSlice';
+import TextButton from '../../../../components/TextButton';
+import ErrorMessage from '../../../../components/ErrorMessage';
+import SignUpFooter from '../../../../components/SignUpFooter';
 export default function HealthConcerns() {
   const navigation = useNavigation();
   const dispatch = useDispatch();

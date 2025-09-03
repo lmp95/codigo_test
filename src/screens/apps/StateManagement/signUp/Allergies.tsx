@@ -1,22 +1,22 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import Typography from '../../components/Typography';
-import { DietsData } from '../../data/Diets';
+import Typography from '../../../../components/Typography';
+import { DietsData } from '../../../../data/Diets';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import {
   AllergiesSchema,
   AllergiesValues,
   DietsSchema,
   DietsValues,
-} from '../../validations/OnBoarding.schema';
+} from '../../../../validations/OnBoarding.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Button from '../../components/Button';
+import Button from '../../../../components/Button';
 import { useNavigation } from '@react-navigation/native';
-import SignUpFooter from '../../components/SignUpFooter';
-import Select from '../../components/Select';
-import { AllergiesData } from '../../data/Allergies';
-import { SelectItem } from '../../types/common';
+import SignUpFooter from '../../../../components/SignUpFooter';
+import Select from '../../../../components/Select';
+import { AllergiesData } from '../../../../data/Allergies';
+import { SelectItem } from '../../../../types/common';
 import { useDispatch } from 'react-redux';
-import { setAllergies } from '../../redux/signUpSlice';
+import { setAllergies } from '../../../../redux/signUpSlice';
 
 export default function Allergies() {
   const navigation = useNavigation();

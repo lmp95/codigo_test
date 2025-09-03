@@ -11,6 +11,7 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
+import { appApi } from '../apis';
 
 const persistConfig = {
   key: 'root',
@@ -20,6 +21,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   signUp: signUpReducer,
+  [appApi.reducerPath]: appApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -31,6 +33,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(appApi.middleware),
 });
+
 export const persist = persistStore(store);

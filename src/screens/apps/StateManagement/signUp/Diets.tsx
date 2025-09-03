@@ -1,15 +1,18 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import Typography from '../../components/Typography';
-import { DietsData } from '../../data/Diets';
+import Typography from '../../../../components/Typography';
+import { DietsData } from '../../../../data/Diets';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
-import { DietsSchema, DietsValues } from '../../validations/OnBoarding.schema';
+import {
+  DietsSchema,
+  DietsValues,
+} from '../../../../validations/OnBoarding.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Button from '../../components/Button';
+import Button from '../../../../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { setDiets, useDietsSelector } from '../../redux/signUpSlice';
-import TextButton from '../../components/TextButton';
-import SignUpFooter from '../../components/SignUpFooter';
+import { setDiets, useDietsSelector } from '../../../../redux/signUpSlice';
+import TextButton from '../../../../components/TextButton';
+import SignUpFooter from '../../../../components/SignUpFooter';
 
 export default function Diets() {
   const navigation = useNavigation();
