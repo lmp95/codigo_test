@@ -12,7 +12,7 @@ import {
   clearSignUp,
   setHealthConcerns,
   useHealthConcernsSelector,
-} from '../../../../redux/signUpSlice';
+} from '../../../../redux/signUpSlice.ts';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { Controller } from 'react-hook-form';

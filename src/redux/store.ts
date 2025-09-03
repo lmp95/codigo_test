@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { signUpReducer } from './signUpSlice';
+import { signUpReducer } from './signUpSlice.ts';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
   FLUSH,
@@ -11,7 +11,8 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
-import { appApi } from '../apis';
+import { appApi } from '../apis/index.ts';
+import { moviesReducer } from './moviesSlice.ts';
 
 const persistConfig = {
   key: 'root',
@@ -21,6 +22,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   signUp: signUpReducer,
+  movies: moviesReducer,
   [appApi.reducerPath]: appApi.reducer,
 });
 

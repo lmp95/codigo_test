@@ -1,23 +1,19 @@
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   useGetPopularMoviesInfiniteQuery,
   useGetUpcomingMoviesInfiniteQuery,
 } from '../../../apis/movies';
 import Typography from '../../../components/Typography';
-import { useNavigation } from '@react-navigation/native';
+import InfiniteScrollList from '../../../components/InfiniteScroll';
+import MovieCard from '../../../components/MovieCard';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Home() {
-  const navigation = useNavigation();
   const {
     data: upcomingMovies,
     isFetching: upcomingFetching,
     hasNextPage,
+    isError: upcomingError,
     fetchNextPage,
     isFetchingNextPage,
   } = useGetUpcomingMoviesInfiniteQuery(
@@ -33,6 +29,7 @@ export default function Home() {
     data: popularMovies,
     isFetching: popularFetching,
     hasNextPage: popularHasNextPage,
+    isError: popularError,
     fetchNextPage: popularFetchNextPage,
     isFetchingNextPage: popularIsFetchingNextPage,
   } = useGetPopularMoviesInfiniteQuery(
@@ -45,44 +42,25 @@ export default function Home() {
   );
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.section}>
         <Typography size="lg" weight="bold">
           Upcoming
         </Typography>
-        <FlatList
-          data={upcomingMovies?.pages.flatMap(page => page.results) ?? []}
-          contentContainerStyle={styles.popularMovieList}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          keyExtractor={item => item.id.toString()}
+        <InfiniteScrollList
           onEndReached={() => {
             if (hasNextPage && !isFetchingNextPage) fetchNextPage();
           }}
+          horizontal
+          contentContainerStyle={styles.popularMovieList}
+          errorMessage="Fail to load movies"
+          isError={upcomingError}
+          isLoading={upcomingFetching || isFetchingNextPage}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={item => item.id.toString()}
+          data={upcomingMovies?.pages.flatMap(page => page.results) ?? []}
           renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                key={item.id}
-                style={styles.movieCard}
-                onPress={() =>
-                  navigation.navigate('MovieDetail', {
-                    movieId: item.id?.toString(),
-                  })
-                }
-              >
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                  width={200}
-                  height={120}
-                />
-                <View style={styles.movieInfo}>
-                  <Typography numberOfLines={1}>{item.title}</Typography>
-                  <Typography size="xs">
-                    {item.vote_average.toFixed(1)}
-                  </Typography>
-                </View>
-              </TouchableOpacity>
-            );
+            return <MovieCard key={item.id} movie={item} />;
           }}
         />
       </View>
@@ -90,46 +68,25 @@ export default function Home() {
         <Typography size="lg" weight="bold">
           Popular
         </Typography>
-        <FlatList
-          data={popularMovies?.pages.flatMap(page => page.results) ?? []}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.popularMovieList}
-          horizontal
-          keyExtractor={item => item.id.toString()}
+        <InfiniteScrollList
           onEndReached={() => {
             if (popularHasNextPage && !popularIsFetchingNextPage)
               popularFetchNextPage();
           }}
+          horizontal
+          contentContainerStyle={styles.popularMovieList}
+          errorMessage="Fail to load movies"
+          isError={popularError}
+          isLoading={popularFetching || popularIsFetchingNextPage}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={item => item.id.toString()}
+          data={popularMovies?.pages.flatMap(page => page.results) ?? []}
           renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                key={item.id}
-                style={styles.movieCard}
-                onPress={() =>
-                  navigation.navigate('MovieDetail', {
-                    movieId: item.id?.toString(),
-                  })
-                }
-              >
-                <Image
-                  source={{
-                    uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
-                  }}
-                  width={200}
-                  height={120}
-                />
-                <View style={styles.movieInfo}>
-                  <Typography numberOfLines={1}>{item.title}</Typography>
-                  <Typography size="xs">
-                    {item.vote_average.toFixed(1)}
-                  </Typography>
-                </View>
-              </TouchableOpacity>
-            );
+            return <MovieCard key={item.id} movie={item} />;
           }}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

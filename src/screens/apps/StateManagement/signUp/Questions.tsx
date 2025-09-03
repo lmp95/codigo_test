@@ -3,7 +3,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { useSignUpSelector } from '../../../../redux/signUpSlice';
+import { useSignUpSelector } from '../../../../redux/signUpSlice.ts';
 import {
   QuestionsSchema,
   QuestionsValues,

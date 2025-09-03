@@ -3,6 +3,7 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { useGetMovieDetailQuery } from '../../../apis/movies';
@@ -10,11 +11,20 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../types/navigationTypes';
 import Typography from '../../../components/Typography';
 import { minutesToHoursMinutes } from '../../../utils/helpers';
-import { Star } from 'lucide-react-native';
+import { Heart } from 'lucide-react-native';
 import Rating from '../../../components/Rating';
+import { useDispatch } from 'react-redux';
+import {
+  toggleLikedMovie,
+  useLikedMoviesSelector,
+} from '../../../redux/moviesSlice';
 
 export default function MovieDetail() {
   const { params } = useRoute<RouteProp<RootStackParamList, 'MovieDetail'>>();
+  const dispatch = useDispatch();
+  const likedMovies = useLikedMoviesSelector();
+  const isLiked = likedMovies.includes(parseInt(params.movieId));
+
   const {
     data: movieDetail,
     isFetching: movieFetching,
@@ -23,6 +33,10 @@ export default function MovieDetail() {
     movieId: params.movieId,
     language: 'en-US',
   });
+
+  const handleToggleFavorite = () => {
+    dispatch(toggleLikedMovie(parseInt(params.movieId)));
+  };
 
   if (movieFetching)
     return (
@@ -52,6 +66,13 @@ export default function MovieDetail() {
           <Typography weight="semiBold">{movieDetail.title}</Typography>
           <Rating rating={movieDetail.vote_average} />
         </View>
+        <TouchableOpacity onPress={handleToggleFavorite}>
+          <Heart
+            size={20}
+            fill={isLiked ? '#c62828' : 'transparent'}
+            stroke={isLiked ? '#c62828' : '#c62828'}
+          />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.section}>

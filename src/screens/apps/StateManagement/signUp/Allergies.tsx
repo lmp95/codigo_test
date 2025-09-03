@@ -16,7 +16,7 @@ import Select from '../../../../components/Select';
 import { AllergiesData } from '../../../../data/Allergies';
 import { SelectItem } from '../../../../types/common';
 import { useDispatch } from 'react-redux';
-import { setAllergies } from '../../../../redux/signUpSlice';
+import { setAllergies } from '../../../../redux/signUpSlice.ts';
 
 export default function Allergies() {
   const navigation = useNavigation();
@@ -39,7 +39,7 @@ export default function Allergies() {
   };
 
   const onSaveAllergies = (formData: AllergiesValues) => {
-    dispatch(setAllergies(formData));
+    dispatch(setAllergies({ allergies: formData.allergies || [] }));
     navigation.navigate('Questions');
   };
 

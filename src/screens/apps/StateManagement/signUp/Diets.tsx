@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../../../../components/Button';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { setDiets, useDietsSelector } from '../../../../redux/signUpSlice';
+import { setDiets, useDietsSelector } from '../../../../redux/signUpSlice.ts';
 import TextButton from '../../../../components/TextButton';
 import SignUpFooter from '../../../../components/SignUpFooter';
 

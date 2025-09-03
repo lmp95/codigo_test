@@ -15,37 +15,28 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function CodeManagementNavigation() {
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="MovieDetail"
-          component={MovieDetail}
-          options={({ navigation }) => ({
-            title: '',
-            headerLeft: () => {
-              return (
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <Typography>Back</Typography>
-                </TouchableOpacity>
-              );
-            },
-          })}
-        />
-      </Stack.Navigator>
-    </SafeAreaView>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="MovieDetail"
+        component={MovieDetail}
+        options={({ navigation }) => ({
+          title: '',
+          headerLeft: () => {
+            return (
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Typography>Back</Typography>
+              </TouchableOpacity>
+            );
+          },
+        })}
+      />
+    </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-});
