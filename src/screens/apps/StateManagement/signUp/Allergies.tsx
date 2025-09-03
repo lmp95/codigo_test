@@ -70,6 +70,7 @@ export default function Allergies() {
         </View>
 
         <SignUpFooter
+          currentStep={3}
           onPressBack={() => navigation.goBack()}
           onPressNext={handleSubmit(onSaveAllergies)}
         />

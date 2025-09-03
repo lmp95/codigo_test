@@ -5,7 +5,7 @@ export const HealthConcernsSchema = object({
     object({
       id: number(),
       name: string(),
-      priotity: number(),
+      priority: number(),
     }),
   )
     .min(1, {
@@ -25,13 +25,9 @@ export const DietsSchema = object({
       id: number(),
       name: string(),
     }),
-  )
-    .min(1, {
-      error: 'Please select at least one',
-    })
-    .nonoptional({
-      error: 'Select your diets',
-    }),
+  ).nonoptional({
+    error: 'Select your diets',
+  }),
 });
 
 export const AllergiesSchema = object({

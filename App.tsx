@@ -17,6 +17,7 @@ import { Provider } from 'react-redux';
 import { persist, store } from './src/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import AppNavigation from './src/navigations/AppNavigation';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -26,10 +27,12 @@ function App() {
       <PersistGate loading={null} persistor={persist}>
         <NavigationContainer>
           <SafeAreaProvider>
-            <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            />
-            <AppNavigation />
+            <GestureHandlerRootView>
+              <StatusBar
+                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+              />
+              <AppNavigation />
+            </GestureHandlerRootView>
           </SafeAreaProvider>
         </NavigationContainer>
       </PersistGate>

@@ -92,6 +92,7 @@ export default function Diets() {
         </View>
 
         <SignUpFooter
+          currentStep={2}
           onPressBack={() => navigation.goBack()}
           onPressNext={handleSubmit(onSaveDiets)}
         />

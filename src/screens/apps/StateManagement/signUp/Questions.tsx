@@ -12,6 +12,7 @@ import Typography from '../../../../components/Typography';
 import Radio from '../../../../components/Radio';
 import ErrorMessage from '../../../../components/ErrorMessage';
 import Button from '../../../../components/Button';
+import SignUpFooter from '../../../../components/SignUpFooter';
 
 export default function Questions() {
   const navigation = useNavigation();
@@ -109,12 +110,12 @@ export default function Questions() {
           />
         </View>
 
-        <View style={styles.footer}>
-          <Button
-            label="Get my personalized vitamin"
-            onPress={handleSubmit(onSaveQuestions)}
-          />
-        </View>
+        <SignUpFooter
+          currentStep={4}
+          hideBackBtn
+          confirmLabel="Get my personalized vitamin"
+          onPressNext={handleSubmit(onSaveQuestions)}
+        />
       </FormProvider>
     </View>
   );
