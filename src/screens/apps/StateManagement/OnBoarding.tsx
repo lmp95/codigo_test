@@ -26,7 +26,7 @@ export default function OnBoarding() {
       <View style={styles.footer}>
         <Button
           label="Get started"
-          onPress={() => navigation.navigate('HealthConcern')}
+          onPress={() => navigation.navigate('SignUp')}
         />
       </View>
     </View>

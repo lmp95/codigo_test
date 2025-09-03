@@ -59,7 +59,16 @@ export const QuestionsSchema = z.object({
     }),
 });
 
+export const SignUpFormSchema = z.object({
+  ...HealthConcernsSchema.shape,
+  ...DietsSchema.shape,
+  ...AllergiesSchema.shape,
+  ...QuestionsSchema.shape,
+});
+
 export type HealthConcernsValues = z.infer<typeof HealthConcernsSchema>;
 export type DietsValues = z.infer<typeof DietsSchema>;
 export type AllergiesValues = z.infer<typeof AllergiesSchema>;
 export type QuestionsValues = z.infer<typeof QuestionsSchema>;
+
+export type SignUpFormValues = z.infer<typeof SignUpFormSchema>;

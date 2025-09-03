@@ -13,7 +13,6 @@ type SignUpFooterProps = {
   confirmLabel?: string;
   onPressNext?: () => void;
   onPressBack?: () => void;
-  currentStep?: number;
 };
 
 export default function SignUpFooter({
@@ -21,28 +20,12 @@ export default function SignUpFooter({
   confirmLabel = 'Next',
   onPressNext,
   onPressBack,
-  currentStep = 0,
 }: SignUpFooterProps) {
-  const animatedProgress = useSharedValue(0);
-
-  useEffect(() => {
-    animatedProgress.value = withTiming(currentStep / 4, {
-      duration: 500,
-    });
-  }, [currentStep]);
-
-  const progressStyle = useAnimatedStyle(() => ({
-    width: `${animatedProgress.value * 100}%`,
-  }));
-
   return (
     <View style={styles.container}>
       <View style={styles.buttons}>
         {!hideBackBtn && <TextButton label="Back" onPress={onPressBack} />}
         <Button label={confirmLabel} onPress={onPressNext} />
-      </View>
-      <View style={styles.progressContainer}>
-        <Animated.View style={[styles.progressBar, progressStyle]} />
       </View>
     </View>
   );
@@ -60,16 +43,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 8,
-  },
-  progressContainer: {
-    height: 6,
-    borderRadius: 1,
-    overflow: 'hidden',
-    marginHorizontal: 20,
-  },
-  progressBar: {
-    height: 6,
-    backgroundColor: '#2F435D',
-    borderRadius: 1,
   },
 });

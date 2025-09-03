@@ -1,30 +1,14 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Typography from '../../../../components/Typography';
 import { DietsData } from '../../../../data/Diets';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
-import {
-  DietsSchema,
-  DietsValues,
-} from '../../../../validations/OnBoarding.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Button from '../../../../components/Button';
-import { useNavigation } from '@react-navigation/native';
+import { Controller, useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { setDiets, useDietsSelector } from '../../../../redux/signUpSlice.ts';
-import TextButton from '../../../../components/TextButton';
-import SignUpFooter from '../../../../components/SignUpFooter';
+import { DietsValues } from '../../../../validations/OnBoarding.schema.ts';
 
 export default function Diets() {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
-  const defaultValues = useDietsSelector();
-  const hookFormProps = useForm<DietsValues>({
-    defaultValues: {
-      diets: defaultValues || [],
-    },
-    resolver: zodResolver(DietsSchema),
-  });
-  const { handleSubmit, watch, setValue } = hookFormProps;
+
+  const { control, watch, setValue } = useFormContext<DietsValues>();
   const { diets } = watch();
 
   const onSelectDiets = (
@@ -38,75 +22,53 @@ export default function Diets() {
     onChange(newValue);
   };
 
-  const onSaveDiets = (formData: DietsValues) => {
-    dispatch(setDiets(formData));
-    navigation.navigate('Allergies');
-  };
-
   return (
-    <View style={styles.container}>
-      <FormProvider {...hookFormProps}>
-        <View style={styles.main}>
-          <Typography size="lg">Select the diets you follow. *</Typography>
+    <View style={styles.main}>
+      <Typography size="lg">Select the diets you follow. *</Typography>
 
-          <View style={styles.dietList}>
-            <TouchableOpacity
-              style={styles.dietItem}
-              onPress={() => setValue('diets', [])}
-            >
-              <View style={styles.checkbox}>
-                {diets.length === 0 && <View style={styles.active} />}
-              </View>
-              <Typography weight="semiBold">None</Typography>
-            </TouchableOpacity>
-            <Controller
-              name="diets"
-              render={({ field: { onChange, value } }) => {
-                return (
-                  <>
-                    {DietsData.map(diet => {
-                      const isSelected = value?.some(
-                        (v: { id: number }) => v.id === diet.id,
-                      );
-
-                      return (
-                        <TouchableOpacity
-                          key={diet.id}
-                          style={styles.dietItem}
-                          onPress={() => {
-                            onSelectDiets(diet, onChange);
-                          }}
-                        >
-                          <View style={styles.checkbox}>
-                            {isSelected && <View style={styles.active} />}
-                          </View>
-                          <Typography weight="semiBold">{diet.name}</Typography>
-                        </TouchableOpacity>
-                      );
-                    })}
-                  </>
-                );
-              }}
-            />
+      <View style={styles.dietList}>
+        <TouchableOpacity
+          style={styles.dietItem}
+          onPress={() => setValue('diets', [])}
+        >
+          <View style={styles.checkbox}>
+            {diets.length === 0 && <View style={styles.active} />}
           </View>
-        </View>
+          <Typography weight="semiBold">None</Typography>
+        </TouchableOpacity>
 
-        <SignUpFooter
-          currentStep={2}
-          onPressBack={() => navigation.goBack()}
-          onPressNext={handleSubmit(onSaveDiets)}
+        <Controller
+          name="diets"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <>
+              {DietsData.map(diet => {
+                const isSelected = value?.some(
+                  (v: { id: number }) => v.id === diet.id,
+                );
+
+                return (
+                  <TouchableOpacity
+                    key={diet.id}
+                    style={styles.dietItem}
+                    onPress={() => onSelectDiets(diet, onChange)}
+                  >
+                    <View style={styles.checkbox}>
+                      {isSelected && <View style={styles.active} />}
+                    </View>
+                    <Typography weight="semiBold">{diet.name}</Typography>
+                  </TouchableOpacity>
+                );
+              })}
+            </>
+          )}
         />
-      </FormProvider>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#D3F3E6',
-    flex: 1,
-    padding: 20,
-  },
   dietList: {
     gap: 16,
     paddingVertical: 16,
@@ -132,12 +94,5 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-  },
-  footer: {
-    flex: 0.2,
-    flexDirection: 'row',
-    gap: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

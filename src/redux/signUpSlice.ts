@@ -6,7 +6,7 @@ type SignUpState = {
   diets: { id: number; name: string }[];
   is_daily_exposure: boolean | null;
   is_smoke: boolean | null;
-  alcohol: boolean | null;
+  alcohol: string | null;
   allergies: { id: number; name: string }[];
 };
 
@@ -43,7 +43,7 @@ const signUpSlice = createSlice({
       action: PayloadAction<{
         is_daily_exposure: boolean | null;
         is_smoke: boolean | null;
-        alcohol: boolean | null;
+        alcohol: string | null;
       }>,
     ) => {
       state.is_daily_exposure = action.payload.is_daily_exposure;

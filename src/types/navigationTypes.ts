@@ -5,7 +5,7 @@ export type RootStackParamList = {
   StateManagement: undefined;
   CodeManagement: undefined;
   OnBoarding: undefined;
-  HealthConcern: undefined;
+  SignUp: undefined;
   Diets: undefined;
   Allergies: undefined;
   Questions: undefined;

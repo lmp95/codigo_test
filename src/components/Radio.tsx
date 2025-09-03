@@ -4,7 +4,7 @@ import { RadioItem } from '../types/common';
 
 type RadioProps = {
   items: RadioItem[];
-  value?: string;
+  value?: string | boolean | null;
   onChange?: (selectedItem: RadioItem) => void;
 };
 export default function Radio({ items, value, onChange }: RadioProps) {
